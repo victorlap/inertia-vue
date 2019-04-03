@@ -23,7 +23,7 @@ export default {
   render(h) {
     if (this.page.instance) {
       return h(this.page.instance, {
-        key: this.page.cached ? `cache:${window.location.pathname}` : window.location.pathname,
+        key: window.location.pathname,
         props: this.page.props
       })
     }
