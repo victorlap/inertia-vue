@@ -10,9 +10,7 @@ Install using NPM:
 npm install inertiajs/inertia-vue --save
 ~~~
 
-## Getting started
-
-### Setup root template
+## Create root template
 
 The first step to using Inertia.js is creating a root template. This template should include your assets, as well as a single `div` with two data attributes: `component` and `props`. This `div` is the root element that we'll use to boot Vue.js in. Here's an example:
 
