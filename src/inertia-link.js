@@ -3,14 +3,28 @@ import Inertia, { shouldIntercept } from 'inertia'
 export default {
   props: {
     href: String,
-    replace: Boolean,
-    preserveScroll: Boolean,
+    method: {
+      type: String,
+      default: 'get',
+    },
+    replace: {
+      type: Boolean,
+      default: false,
+    },
+    preserveScroll: {
+      type: Boolean,
+      default: false,
+    },
   },
   methods: {
     visit(event) {
       if (shouldIntercept(event)) {
         event.preventDefault()
-        Inertia.visit(this.href, { replace: this.replace, preserveScroll: this.preserveScroll })
+        Inertia.visit(this.href, {
+          method: this.method,
+          replace: this.replace,
+          preserveScroll: this.preserveScroll,
+        })
       }
     },
   },
