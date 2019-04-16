@@ -14,11 +14,19 @@ export default {
   },
   data() {
     return {
-      page: Inertia.page
+      page: {
+        instance: null,
+        props: null,
+      }
     }
   },
   created() {
-    Inertia.init(this.component, this.props, this.resolveComponent)
+    Inertia.init(this.component, this.props, (component, props) => {
+      return Promise.resolve(this.resolveComponent(component)).then(instance => {
+        this.page.instance = instance
+        this.page.props = props
+      })
+    })
   },
   render(h) {
     if (this.page.instance) {
