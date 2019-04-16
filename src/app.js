@@ -1,5 +1,4 @@
 import Inertia from 'inertia'
-import Vue from 'vue'
 
 export default {
   name: 'Inertia',
@@ -7,6 +6,11 @@ export default {
     component: String,
     props: Object,
     resolveComponent: Function,
+  },
+  provide() {
+    return {
+      page: this.page
+    }
   },
   data() {
     return {
@@ -19,8 +23,8 @@ export default {
   created() {
     Inertia.init(this.component, this.props, (component, props) => {
       return Promise.resolve(this.resolveComponent(component)).then(instance => {
-        Vue.prototype.$page = props
-        this.page = { instance, props }
+        this.page.instance = instance
+        this.page.props = props
       })
     })
   },
