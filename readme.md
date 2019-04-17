@@ -12,7 +12,7 @@ npm install inertiajs/inertia-vue --save
 
 ## Create root template
 
-The first step to using Inertia.js is creating a root template. This template should include your assets, as well as a single `div` with two data attributes: `component` and `props`. This `div` is the root element that we'll use to boot Vue.js in. Here's an example:
+The first step when using Inertia.js is to create a root template. This template should include your assets, as well as a single `div` with a `data-page` attribute. This `div` is the root element that we'll use to boot Vue.js in, and the `data-page` attribute will the inital page information. Here's a PHP example:
 
 ~~~php
 <!DOCTYPE html>
@@ -25,11 +25,17 @@ The first step to using Inertia.js is creating a root template. This template sh
 </head>
 <body>
 
-<div id="app" data-component="{{ $component }}" data-props="{{ json_encode((object) $props) }}"></div>
+<div id="app" data-page="{{ json_encode($page) }}"></div>
 
 </body>
 </html>
 ~~~
+
+The `$page` object should contain three values:
+
+- `component`: The name of the Vue page component.
+- `props`: The page component data (props).
+- `version`: The current asset version (if you want to use automatic asset refreshing).
 
 ## Setting up Webpack
 
@@ -79,8 +85,7 @@ let app = document.getElementById('app')
 new Vue({
   render: h => h(Inertia, {
     props: {
-      component: app.dataset.component,
-      props: JSON.parse(app.dataset.props),
+      initialPage: JSON.parse(app.dataset.page),
       resolveComponent: (component) => {
         return import(`@/Pages/${component}`).then(module => module.default)
       },
@@ -89,11 +94,7 @@ new Vue({
 }).$mount(app)
 ~~~
 
-The base Inertia page component has three props:
-
-- `component`: The name of the first (current) page component.
-- `props`: The props (data) for the first (current) page component.
-- `resolveComponent`: A callback that tells Inertia how to load a page component. This callback must return a promise with a page instance.
+The `resolveComponent` is a callback that tells Inertia how to load a page component. This callback must return a promise with a page instance.
 
 ## Creating a base layout
 

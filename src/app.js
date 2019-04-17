@@ -3,8 +3,7 @@ import Inertia from 'inertia'
 export default {
   name: 'Inertia',
   props: {
-    component: String,
-    props: Object,
+    initialPage: Object,
     resolveComponent: Function,
   },
   provide() {
@@ -21,10 +20,10 @@ export default {
     }
   },
   created() {
-    Inertia.init(this.component, this.props, (component, props) => {
-      return Promise.resolve(this.resolveComponent(component)).then(instance => {
+    Inertia.init(this.initialPage, (page) => {
+      return Promise.resolve(this.resolveComponent(page.component)).then(instance => {
         this.page.instance = instance
-        this.page.props = props
+        this.page.props = page.props
       })
     })
   },
