@@ -191,3 +191,36 @@ Inertia.delete(url, { replace = false, preserveScroll = false })
 ~~~
 
 Just like with an `<inertia-link>`, you can set the browser history and scroll behaviour using the `replace` and `preserveScroll` options.
+
+## Accessing page data in other components
+
+Sometimes it's necessary to access the page data (props) from a non-page component. One really common use-case for this is the site layout. For example, maybe you want to show the currently authenticated user in your site header. This is possible using Vue's provide/inject features. The base Inertia component automatically "provides" the current page object, which can then be "injected" into any component. Here's a simple example:
+
+~~~vue
+<template>
+  <main>
+    <header>
+      You are logged in as: {{ page.props.auth.user.name }}
+      <nav>
+        <inertia-link href="/">Home</inertia-link>
+        <inertia-link href="/about">About</inertia-link>
+        <inertia-link href="/contact">Contact</inertia-link>
+      </nav>
+    </header>
+    <article>
+      <slot />
+    </article>
+  </main>
+</template>
+
+<script>
+import { InertiaLink } from 'inertia-vue'
+
+export default {
+  components: {
+    InertiaLink,
+  },
+  inject: ['page'],
+}
+</script>
+~~~
