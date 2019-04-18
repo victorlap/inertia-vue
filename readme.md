@@ -150,7 +150,7 @@ export default {
 
 ## Creating links
 
-To create an Inertia link, use the `<inertia-link>` component:
+To create an Inertia link, use the `<inertia-link>` component.
 
 ~~~html
 <template>
@@ -165,41 +165,29 @@ export default {
 </script>
 ~~~
 
-You can also specify the browser history and scroll behaviour. By default all link clicks "push" a new history state, and reset the scroll position back to the top of the page. However, you can override these defaults using the `replace` and `preserve-scroll` attributes:
+You can also specify the browser history and scroll behaviour. By default all link clicks "push" a new history state, and reset the scroll position back to the top of the page. However, you can override these defaults using the `replace` and `preserve-scroll` attributes.
 
 ~~~html
-<inertia-link replace preserve-scroll href="/">Home</inertia-link>
+<inertia-link href="/" replace preserve-scroll>Home</inertia-link>
 ~~~
 
-## Manually making Inertia visits
+You can also specify the method for the request. The default is `GET`, but you can also use `POST`, `PUT`, `PATCH`, and `DELETE`.
 
-In addition to clicking links, it's also very common to manually make Inertia visits. For example, after a successful login form submission, you may want to "redirect" to a different page. This can be done using the `Inertia.visit()` helper:
+~~~html
+<inertia-link href="/logout" method="post">Logout</inertia-link>
+~~~
+
+## Manually making visits
+
+In addition to clicking links, it's also very common to manually make Inertia visits. The following methods are available:
 
 ~~~js
-import { Inertia } from 'inertia-vue'
-
-submit() {
-  axios.post('/login', this.form).then(response => {
-      Inertia.visit(response.data.intendedUrl)
-  })
-}
+Inertia.visit(url, { method = 'get', data = {}, replace = false, preserveScroll = false })
+Inertia.replace(url, { method = 'get', data = {}, preserveScroll = false })
+Inertia.post(url, data = {}, { replace = false, preserveScroll = false })
+Inertia.put(url, data = {}, { replace = false, preserveScroll = false })
+Inertia.patch(url, data = {}, { replace = false, preserveScroll = false })
+Inertia.delete(url, { replace = false, preserveScroll = false })
 ~~~
 
-And just like with an `<inertia-link>`, you can also set the browser history and scroll behaviour:
-
-~~~js
-import { Inertia } from 'inertia-vue'
-
-Inertia.visit(url, {
-  replace: true,
-  preserveScroll: true,
-})
-~~~
-
-In fact, since "replace" is a more common action, you can even do this:
-
-~~~js
-import { Inertia } from 'inertia-vue'
-
-Inertia.replace(url, { preserveScroll: true })
-~~~
+Just like with an `<inertia-link>`, you can set the browser history and scroll behaviour using the `replace` and `preserveScroll` options.
