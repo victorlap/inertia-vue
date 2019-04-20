@@ -182,11 +182,25 @@ You can also specify the method for the request. The default is `GET`, but you c
 In addition to clicking links, it's also very common to manually make Inertia visits. The following methods are available:
 
 ~~~js
+// Make a visit
 Inertia.visit(url, { method = 'get', data = {}, replace = false, preserveScroll = false })
+
+// Make a "replace" visit
 Inertia.replace(url, { method = 'get', data = {}, preserveScroll = false })
+
+// Make a "replace" visit to the current url
+Inertia.reload({ method = 'get', data = {}, preserveScroll = false })
+
+// Make a POST visit
 Inertia.post(url, data = {}, { replace = false, preserveScroll = false })
+
+// Make a PUT visit
 Inertia.put(url, data = {}, { replace = false, preserveScroll = false })
+
+// Make a PATCH visit
 Inertia.patch(url, data = {}, { replace = false, preserveScroll = false })
+
+// Make a DELETE visit
 Inertia.delete(url, { replace = false, preserveScroll = false })
 ~~~
 
