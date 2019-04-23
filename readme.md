@@ -238,3 +238,37 @@ export default {
 }
 </script>
 ~~~
+
+## Remembering local component state
+
+When navigating browser history, Inertia reloads pages using prop data cached in history state. Inertia does not, however, cache local component state, since this is beyond its reach. This can lead to outdated pages in your browser history. For example, if a user partially completes a form, then navigates away, and then returns back, the form will be reset and their work will have been lost.
+
+To mitigate this issue, you can use `Inertia.remember()` to automatically cache and restore local component state.
+
+~~~js
+data() {
+  return {
+    form: Inertia.remember({
+      first_name: null,
+      last_name: null,
+      email: null,
+      password: null,
+    }),
+  }
+},
+~~~
+
+If your page contains multiple components that use `Inertia.remember()`, be sure to provide unique key for each component. You can do this by passing a key as the second argument.
+
+~~~js
+data() {
+  return {
+    form: Inertia.remember({
+      first_name: this.user.first_name,
+      last_name: this.user.last_name,
+      email: this.user.email,
+      password: this.user.password,
+    }, `Users/Edit:${this.user.id}`),
+  }
+},
+~~~
