@@ -80,14 +80,16 @@ Next, update your main JavaScript file to boot your Inertia app. All we're doing
 import Inertia from 'inertia-vue'
 import Vue from 'vue'
 
+Vue.use(Inertia)
+
 let app = document.getElementById('app')
 
 new Vue({
   render: h => h(Inertia, {
     props: {
       initialPage: JSON.parse(app.dataset.page),
-      resolveComponent: (component) => {
-        return import(`@/Pages/${component}`).then(module => module.default)
+      resolveComponent: (name) => {
+        return import(`@/Pages/${name}`).then(module => module.default)
       },
     },
   }),
@@ -113,16 +115,6 @@ While not required, for most projects it makes sense to create a default site la
     </article>
   </main>
 </template>
-
-<script>
-import { InertiaLink } from 'inertia-vue'
-
-export default {
-  components: {
-    InertiaLink,
-  },
-}
-</script>
 ~~~
 
 ## Creating page components
@@ -156,13 +148,6 @@ To create an Inertia link, use the `<inertia-link>` component.
 <template>
   <inertia-link href="/">Home</inertia-link>
 </template>
-
-<script>
-import { InertiaLink } from 'inertia-vue'
-export default {
-  components: { InertiaLink }
-}
-</script>
 ~~~
 
 You can also specify the browser history and scroll behaviour. By default all link clicks "push" a new history state, and reset the scroll position back to the top of the page. However, you can override these defaults using the `replace` and `preserve-scroll` attributes.
@@ -182,26 +167,13 @@ You can also specify the method for the request. The default is `GET`, but you c
 In addition to clicking links, it's also very common to manually make Inertia visits. The following methods are available:
 
 ~~~js
-// Make a visit
-Inertia.visit(url, { method = 'get', data = {}, replace = false, preserveScroll = false })
-
-// Make a "replace" visit
-Inertia.replace(url, { method = 'get', data = {}, preserveScroll = false })
-
-// Make a "replace" visit to the current url
-Inertia.reload({ method = 'get', data = {}, preserveScroll = false })
-
-// Make a POST visit
-Inertia.post(url, data = {}, { replace = false, preserveScroll = false })
-
-// Make a PUT visit
-Inertia.put(url, data = {}, { replace = false, preserveScroll = false })
-
-// Make a PATCH visit
-Inertia.patch(url, data = {}, { replace = false, preserveScroll = false })
-
-// Make a DELETE visit
-Inertia.delete(url, { replace = false, preserveScroll = false })
+this.$inertia.visit(url, { method = 'get', data = {}, replace = false, preserveScroll = false })
+this.$inertia.replace(url, { method = 'get', data = {}, preserveScroll = false })
+this.$inertia.reload({ method = 'get', data = {}, preserveScroll = false })
+this.$inertia.post(url, data = {}, { replace = false, preserveScroll = false })
+this.$inertia.put(url, data = {}, { replace = false, preserveScroll = false })
+this.$inertia.patch(url, data = {}, { replace = false, preserveScroll = false })
+this.$inertia.delete(url, { replace = false, preserveScroll = false })
 ~~~
 
 Just like with an `<inertia-link>`, you can set the browser history and scroll behaviour using the `replace` and `preserveScroll` options.
@@ -228,12 +200,7 @@ Sometimes it's necessary to access the page data (props) from a non-page compone
 </template>
 
 <script>
-import { InertiaLink } from 'inertia-vue'
-
 export default {
-  components: {
-    InertiaLink,
-  },
   inject: ['page'],
 }
 </script>
@@ -243,32 +210,53 @@ export default {
 
 When navigating browser history, Inertia reloads pages using prop data cached in history state. Inertia does not, however, cache local component state, since this is beyond its reach. This can lead to outdated pages in your browser history. For example, if a user partially completes a form, then navigates away, and then returns back, the form will be reset and their work will have been lost.
 
-To mitigate this issue, you can use `Inertia.remember()` to automatically cache and restore local component state.
+To mitigate this issue, you can use `remember` property to tell Inertia.js which local component state to cache. To do this, provide an array of the data keys you want to cache.
 
 ~~~js
-data() {
-  return {
-    form: Inertia.remember({
-      first_name: null,
-      last_name: null,
-      email: null,
-      password: null,
-    }),
+{
+  remember: {
+    data: ['form']
+  },
+  data() {
+    return {
+      form: {
+        first_name: null,
+        last_name: null,
+        // ...
+      },
+    }
   }
-},
+}
 ~~~
 
-If your page contains multiple components that use `Inertia.remember()`, be sure to provide unique key for each component. You can do this by passing a key as the second argument.
+If your page contains multiple components using the remember functionality, you'll need to provide a unique key for each component.
 
 ~~~js
-data() {
-  return {
-    form: Inertia.remember({
-      first_name: this.user.first_name,
-      last_name: this.user.last_name,
-      email: this.user.email,
-      password: this.user.password,
-    }, `Users/Edit:${this.user.id}`),
+{
+  remember: {
+    key: () => `Users/Edit:${this.user.id}`,
+    data: ['form']
+  },
+  data() {
+    return {
+      form: {
+        first_name: this.user.first_name,
+        last_name: this.user.last_name,
+        // ...
+      },
+    }
   }
-},
+}
+~~~
+
+You can also shortform the remember values:
+
+~~~js
+{
+  // array of data keys
+  remember: ['form'],
+
+  // single data key
+  remember: 'form',
+}
 ~~~
