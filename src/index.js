@@ -1,4 +1,4 @@
-import Inertia, { shouldIntercept } from 'inertia'
+import Inertia from 'inertia'
 import App from './app'
 import InertiaLink from './inertia-link'
 
