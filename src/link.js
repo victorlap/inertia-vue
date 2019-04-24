@@ -1,6 +1,7 @@
 import Inertia, { shouldIntercept } from 'inertia'
 
 export default {
+  functional: true,
   props: {
     href: String,
     method: {
@@ -16,26 +17,27 @@ export default {
       default: false,
     },
   },
-  methods: {
-    visit(event) {
+  render: function(h, { props, data, children }) {
+    const visit = function (event) {
       if (shouldIntercept(event)) {
         event.preventDefault()
-        Inertia.visit(this.href, {
-          method: this.method,
-          replace: this.replace,
-          preserveScroll: this.preserveScroll,
+        Inertia.visit(props.href, {
+          method: props.method,
+          replace: props.replace,
+          preserveScroll: props.preserveScroll,
         })
       }
-    },
-  },
-  render: function(h) {
+    }
     return h('a', {
+      ...data,
       attrs: {
-        href: this.href,
+        ...data.attrs,
+        href: props.href,
       },
       on: {
-        click: this.visit,
+        ...data.on || {},
+        click: visit,
       },
-    }, this.$slots.default)
+    }, children)
   },
 }
