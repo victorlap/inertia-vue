@@ -10,32 +10,9 @@ Install using NPM:
 npm install inertiajs/inertia-vue --save
 ~~~
 
-## Create root template
+## Configure server-side framework
 
-The first step when using Inertia.js is to create a root template. This template should include your assets, as well as a single `div` with a `data-page` attribute. This `div` is the root element that we'll use to boot Vue.js in, and the `data-page` attribute will the inital page information. Here's a PHP example:
-
-~~~php
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
-    <script src="{{ mix('/js/app.js') }}" defer></script>
-</head>
-<body>
-
-<div id="app" data-page="{{ json_encode($page) }}"></div>
-
-</body>
-</html>
-~~~
-
-The `$page` object should contain three values:
-
-- `component`: The name of the Vue page component.
-- `props`: The page component data (props).
-- `version`: The current asset version (if you want to use automatic asset refreshing).
+The first step when using Inertia.js is to configure your server-side framework. This primarily includes setting up a root template and updating your endpoints to return a proper Inertia response. For an example of this, see our [Laravel adapter](https://github.com/inertiajs/inertia-laravel).
 
 ## Setting up Webpack
 
