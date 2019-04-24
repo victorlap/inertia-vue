@@ -1,4 +1,6 @@
 import Inertia from 'inertia'
+import Link from './link'
+import Remember from './remember'
 
 export default {
   name: 'Inertia',
@@ -34,5 +36,10 @@ export default {
         props: this.page.props
       })
     }
-  }
+  },
+  install(Vue) {
+    Object.defineProperty(Vue.prototype, '$inertia', { get() { return Inertia } })
+    Vue.mixin(Remember)
+    Vue.component('InertiaLink', Link)
+  },
 }
