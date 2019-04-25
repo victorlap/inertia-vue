@@ -7,15 +7,15 @@ export default {
     }
 
     if (Array.isArray(this.$options.remember)) {
-      this.$options.remember = {
-        data: this.$options.remember,
-      }
+      this.$options.remember = { data: this.$options.remember }
     }
 
     if (typeof this.$options.remember === 'string') {
-      this.$options.remember = {
-        data: [this.$options.remember],
-      }
+      this.$options.remember = { data: [this.$options.remember] }
+    }
+
+    if (typeof this.$options.remember.data === 'string') {
+      this.$options.remember = { data: [this.$options.remember.data] }
     }
 
     const stateKey = this.$options.remember.key instanceof Function
