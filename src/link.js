@@ -17,17 +17,19 @@ export default {
       default: false,
     },
   },
-  render: function(h, { props, data, children }) {
-    const visit = function (event) {
+  render(h, { props, data, children }) {
+    const visit = event => {
       if (shouldIntercept(event)) {
         event.preventDefault()
+
         Inertia.visit(props.href, {
           method: props.method,
-          replace: props.replace,
           preserveScroll: props.preserveScroll,
+          replace: props.replace,
         })
       }
     }
+
     return h('a', {
       ...data,
       attrs: {
@@ -35,7 +37,7 @@ export default {
         href: props.href,
       },
       on: {
-        ...data.on || {},
+        ...(data.on || {}),
         click: visit,
       },
     }, children)
