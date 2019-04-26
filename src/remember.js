@@ -29,7 +29,7 @@ export default {
         this[key] = restored[key]
       }
 
-      this.$watch(key, data => {
+      this.$watch(key, () => {
         let rememberedData = {}
         this.$options.remember.data.forEach(key => rememberedData[key] = this[key])
         Inertia.remember(rememberedData, stateKey)
