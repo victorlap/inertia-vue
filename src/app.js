@@ -10,7 +10,7 @@ export default {
   },
   provide() {
     return {
-      page: this.page
+      page: this.page,
     }
   },
   data() {
@@ -18,7 +18,7 @@ export default {
       page: {
         instance: null,
         props: null,
-      }
+      },
     }
   },
   created() {
@@ -33,7 +33,7 @@ export default {
     if (this.page.instance) {
       return h(this.page.instance, {
         key: window.location.pathname,
-        props: this.page.props
+        props: this.page.props,
       })
     }
   },
