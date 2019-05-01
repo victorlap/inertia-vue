@@ -35,7 +35,7 @@ mix.js('resources/js/app.js', 'public/js').webpackConfig({
 
 ## Setup dynamic imports
 
-We recommend using code splitting with Inertia.js. To do this we need to enable [dynamic imports](https://github.com/tc39/proposal-dynamic-import). We'll use a Babel plugin to make this work. First, install the plugin:
+By default, Inertia.js uses code splitting. To do this we need to enable [dynamic imports](https://github.com/tc39/proposal-dynamic-import). We'll use a Babel plugin to make this work. First, install the plugin:
 
 ~~~sh
 npm install @babel/plugin-syntax-dynamic-import --save
