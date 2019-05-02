@@ -3,7 +3,10 @@ import Inertia, { shouldIntercept } from 'inertia'
 export default {
   functional: true,
   props: {
-    href: String,
+    href: {
+      type: String,
+      required: true,
+    },
     method: {
       type: String,
       default: 'get',

@@ -5,8 +5,14 @@ import Remember from './remember'
 export default {
   name: 'Inertia',
   props: {
-    initialPage: Object,
-    resolveComponent: Function,
+    initialPage: {
+      type: Object,
+      required: true,
+    },
+    resolveComponent: {
+      type: Function,
+      required: true,
+    },
   },
   provide() {
     return {
