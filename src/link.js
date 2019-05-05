@@ -18,16 +18,6 @@ export default {
     },
   },
   render: function(h, { props, data, children }) {
-    const visit = function (event) {
-      if (shouldIntercept(event)) {
-        event.preventDefault()
-        Inertia.visit(props.href, {
-          method: props.method,
-          replace: props.replace,
-          preserveScroll: props.preserveScroll,
-        })
-      }
-    }
     return h('a', {
       ...data,
       attrs: {
@@ -40,7 +30,15 @@ export default {
           if (data.on && data.on.click) {
             data.on.click(event)
           }
-          visit(event)
+
+          if (shouldIntercept(event)) {
+            event.preventDefault()
+            Inertia.visit(props.href, {
+              method: props.method,
+              replace: props.replace,
+              preserveScroll: props.preserveScroll,
+            })
+          }
         },
       },
     }, children)
