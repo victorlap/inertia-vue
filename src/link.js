@@ -36,7 +36,12 @@ export default {
       },
       on: {
         ...data.on || {},
-        click: visit,
+        click: event => {
+          if (data.on && data.on.click) {
+            data.on.click(event)
+          }
+          visit(event)
+        },
       },
     }, children)
   },
