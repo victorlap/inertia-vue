@@ -30,10 +30,10 @@ export default {
       }
 
       this.$watch(key, () => {
-        let rememberedData = {}
-        this.$options.remember.data.forEach(key => rememberedData[key] = this[key])
-
-        Inertia.remember(rememberedData, stateKey)
+        Inertia.remember(
+          this.$options.remember.data.reduce((data, key) => ({ ...data, [key]: this[key] }), {}),
+          stateKey
+        )
       }, { immediate: true, deep: true })
     })
   },
