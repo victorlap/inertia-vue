@@ -3,7 +3,10 @@ import Inertia, { shouldIntercept } from 'inertia'
 export default {
   functional: true,
   props: {
-    href: String,
+    href: {
+      type: String,
+      required: true,
+    },
     method: {
       type: String,
       default: 'get',
@@ -17,7 +20,7 @@ export default {
       default: false,
     },
   },
-  render: function(h, { props, data, children }) {
+  render(h, { props, data, children }) {
     return h('a', {
       ...data,
       attrs: {
@@ -25,7 +28,7 @@ export default {
         href: props.href,
       },
       on: {
-        ...data.on || {},
+        ...(data.on || {}),
         click: event => {
           if (data.on && data.on.click) {
             data.on.click(event)
@@ -33,10 +36,11 @@ export default {
 
           if (shouldIntercept(event)) {
             event.preventDefault()
+
             Inertia.visit(props.href, {
               method: props.method,
-              replace: props.replace,
               preserveScroll: props.preserveScroll,
+              replace: props.replace,
             })
           }
         },

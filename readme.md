@@ -22,12 +22,14 @@ Here is an example Webpack configuration that uses [Laravel Mix](https://github.
 const mix = require('laravel-mix')
 const path = require('path')
 
-mix.sass('resources/sass/app.scss', 'public/css')
-  .js('resources/js/app.js', 'public/js').webpackConfig({
+mix
+  .js('resources/js/app.js', 'public/js')
+  .sass('resources/sass/app.scss', 'public/css')
+  .webpackConfig({
     output: { chunkFilename: 'js/[name].[contenthash].js' },
     resolve: {
       alias: {
-        'vue$': 'vue/dist/vue.runtime.js',
+        vue$: 'vue/dist/vue.runtime.js',
         '@': path.resolve('resources/js'),
       },
     },
@@ -44,7 +46,7 @@ npm install @babel/plugin-syntax-dynamic-import --save
 
 Next, create a `.babelrc` file in your project with the following:
 
-~~~js
+~~~json
 {
   "plugins": ["@babel/plugin-syntax-dynamic-import"]
 }
@@ -66,9 +68,7 @@ new Vue({
   render: h => h(Inertia, {
     props: {
       initialPage: JSON.parse(app.dataset.page),
-      resolveComponent: (name) => {
-        return import(`@/Pages/${name}`).then(module => module.default)
-      },
+      resolveComponent: name => import(`@/Pages/${name}`).then(module => module.default),
     },
   }),
 }).$mount(app)
@@ -80,7 +80,7 @@ The `resolveComponent` is a callback that tells Inertia how to load a page compo
 
 While not required, for most projects it makes sense to create a default site layout that your specific pages can extend. Save this to `/Shared/Layout.vue`.
 
-~~~html
+~~~vue
 <template>
   <main>
     <header>
@@ -88,6 +88,7 @@ While not required, for most projects it makes sense to create a default site la
       <inertia-link href="/about">About</inertia-link>
       <inertia-link href="/contact">Contact</inertia-link>
     </header>
+
     <article>
       <slot />
     </article>
@@ -99,7 +100,7 @@ While not required, for most projects it makes sense to create a default site la
 
 With Inertia.js, each page in your application is a JavaScript component. Here's an example of a page component. Save this to `/Pages/Welcome.vue`. Note how it extends the `Layout.vue` component we created above.
 
-~~~html
+~~~vue
 <template>
   <layout>
     <h1>Welcome</h1>
@@ -122,7 +123,7 @@ export default {
 
 To create an Inertia link, use the `<inertia-link>` component.
 
-~~~html
+~~~vue
 <template>
   <inertia-link href="/">Home</inertia-link>
 </template>
@@ -130,13 +131,13 @@ To create an Inertia link, use the `<inertia-link>` component.
 
 You can also specify the browser history and scroll behaviour. By default all link clicks "push" a new history state, and reset the scroll position back to the top of the page. However, you can override these defaults using the `replace` and `preserve-scroll` attributes.
 
-~~~html
+~~~vue
 <inertia-link href="/" replace preserve-scroll>Home</inertia-link>
 ~~~
 
 You can also specify the method for the request. The default is `GET`, but you can also use `POST`, `PUT`, `PATCH`, and `DELETE`.
 
-~~~html
+~~~vue
 <inertia-link href="/logout" method="post">Logout</inertia-link>
 ~~~
 
@@ -165,12 +166,14 @@ Sometimes it's necessary to access the page data (props) from a non-page compone
   <main>
     <header>
       You are logged in as: {{ page.props.auth.user.name }}
+
       <nav>
         <inertia-link href="/">Home</inertia-link>
         <inertia-link href="/about">About</inertia-link>
         <inertia-link href="/contact">Contact</inertia-link>
       </nav>
     </header>
+
     <article>
       <slot />
     </article>
@@ -193,7 +196,7 @@ To mitigate this issue, you can use the `remember` property to tell Inertia.js w
 ~~~js
 {
   remember: {
-    data: ['form']
+    data: ['form'],
   },
   data() {
     return {
@@ -203,7 +206,7 @@ To mitigate this issue, you can use the `remember` property to tell Inertia.js w
         // ...
       },
     }
-  }
+  },
 }
 ~~~
 
@@ -212,8 +215,8 @@ If your page contains multiple components using the remember functionality, you'
 ~~~js
 {
   remember: {
+    data: ['form'],
     key: () => `Users/Edit:${this.user.id}`,
-    data: ['form']
   },
   data() {
     return {
@@ -223,7 +226,7 @@ If your page contains multiple components using the remember functionality, you'
         // ...
       },
     }
-  }
+  },
 }
 ~~~
 
