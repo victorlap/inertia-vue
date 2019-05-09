@@ -15,6 +15,10 @@ export default {
       type: Function,
       required: true,
     },
+    transformProps: {
+      type: Function,
+      default: (props) => props,
+    },
   },
   data() {
     return {
@@ -27,7 +31,7 @@ export default {
     Inertia.init(this.initialPage, page =>
       Promise.resolve(this.resolveComponent(page.component)).then(instance => {
         this.instance = instance
-        this.props = page.props
+        this.props = this.transformProps(page.props)
       })
     )
   },
