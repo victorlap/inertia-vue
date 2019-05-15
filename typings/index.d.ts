@@ -1,13 +1,11 @@
-import Inertia from 'inertia'
+import Inertia, { Page } from 'inertia'
 import { Component, FunctionalComponentOptions } from 'vue'
-
-interface PageProps {}
 
 interface AppData {
   page: object,
 }
 interface AppProps {
-  initialPage: PageProps,
+  initialPage: Page,
   resolveComponent: (name: string) => Component,
 }
 declare const App: Component<AppData, never, never, AppProps>
