@@ -3,12 +3,10 @@ module.exports = {
     browser: true,
     es6: true,
   },
-  extends: [
-    'eslint:recommended',
-  ],
+  extends: ['eslint:recommended'],
   parserOptions: {
-    sourceType: 'module',
     ecmaVersion: 2018,
+    sourceType: 'module',
   },
   rules: {
     indent: ['error', 2],

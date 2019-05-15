@@ -17,7 +17,7 @@ export default {
     },
     transformProps: {
       type: Function,
-      default: (props) => props,
+      default: props => props,
     },
   },
   data() {
