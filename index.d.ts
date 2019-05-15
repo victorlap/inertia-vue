@@ -8,11 +8,16 @@ interface Page<PageProps = {}> {
 interface AppData<PageProps = {}> {
   page: Page<PageProps>
 }
-interface AppProps {
-  initialPage: InertiaPage
+interface AppProps<PageProps = {}> {
+  initialPage: InertiaPage<PageProps>
   resolveComponent: (name: string) => Component
 }
-type App<PageProps = {}> = Component<AppData<PageProps>, never, never, AppProps>
+type App<PageProps = {}> = Component<
+  AppData<PageProps>,
+  never,
+  never,
+  AppProps<PageProps>
+>
 
 interface InertiaLinkProps {
   href: string
