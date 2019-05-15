@@ -1,20 +1,21 @@
 import Inertia, { Page as InertiaPage } from 'inertia'
 import { Component, FunctionalComponentOptions } from 'vue'
 
-interface Page<PageProps = {}> {
+interface Page<TransformedProps = {}> {
   instance: Component | null
-  props: PageProps | {}
+  props: TransformedProps | {}
 }
-type AppData<PageProps = {}> = Page<PageProps>
-interface AppProps<PageProps = {}> {
+type AppData<TransformedProps = {}> = Page<TransformedProps>
+interface AppProps<PageProps = {}, TransformedProps = PageProps> {
   initialPage: InertiaPage<PageProps>
   resolveComponent: (name: string) => Component
+  transformProps?: (props: PageProps) => TransformedProps
 }
-type App<PageProps = {}> = Component<
-  AppData<PageProps>,
+type App<PageProps = {}, TransformedProps = PageProps> = Component<
+  AppData<TransformedProps>,
   never,
   never,
-  AppProps<PageProps>
+  AppProps<PageProps, TransformedProps>
 >
 
 interface InertiaLinkProps {
