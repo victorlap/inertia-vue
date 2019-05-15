@@ -3,6 +3,10 @@ import Inertia, { shouldIntercept } from 'inertia'
 export default {
   functional: true,
   props: {
+    data: {
+      type: Object,
+      default: {},
+    },
     href: {
       type: String,
       required: true,
@@ -38,6 +42,7 @@ export default {
             event.preventDefault()
 
             Inertia.visit(props.href, {
+              data: props.data,
               method: props.method,
               preserveScroll: props.preserveScroll,
               replace: props.replace,
