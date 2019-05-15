@@ -22,7 +22,7 @@ type App<PageProps = {}> = Component<
 interface InertiaLinkProps {
   href: string
   method?: string
-  onClick?: () => void
+  onClick?: (event: HTMLInputElement | KeyboardEvent) => void
   preserveScroll?: boolean
   replace?: boolean
 }
