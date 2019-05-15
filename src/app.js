@@ -2,6 +2,8 @@ import Inertia from 'inertia'
 import Link from './link'
 import Remember from './remember'
 
+let app = {}
+
 export default {
   name: 'Inertia',
   props: {
@@ -13,38 +15,37 @@ export default {
       type: Function,
       required: true,
     },
-  },
-  provide() {
-    return {
-      page: this.page,
-    }
+    transformProps: {
+      type: Function,
+      default: (props) => props,
+    },
   },
   data() {
     return {
-      page: {
-        instance: null,
-        props: {},
-      },
+      instance: null,
+      props: {},
     }
   },
   created() {
+    app = this
     Inertia.init(this.initialPage, page =>
       Promise.resolve(this.resolveComponent(page.component)).then(instance => {
-        this.page.instance = instance
-        this.page.props = page.props
+        this.instance = instance
+        this.props = this.transformProps(page.props)
       })
     )
   },
   render(h) {
-    if (this.page.instance) {
-      return h(this.page.instance, {
+    if (this.instance) {
+      return h(this.instance, {
         key: window.location.pathname,
-        props: this.page.props,
+        props: this.props,
       })
     }
   },
   install(Vue) {
     Object.defineProperty(Vue.prototype, '$inertia', { get: () => Inertia })
+    Object.defineProperty(Vue.prototype, '$page', { get: () => app.props })
     Vue.mixin(Remember)
     Vue.component('InertiaLink', Link)
   },

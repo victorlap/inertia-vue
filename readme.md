@@ -159,13 +159,13 @@ Just like with an `<inertia-link>`, you can set the browser history and scroll b
 
 ## Accessing page data in other components
 
-Sometimes it's necessary to access the page data (props) from a non-page component. One really common use-case for this is the site layout. For example, maybe you want to show the currently authenticated user in your site header. This is possible using Vue's provide/inject features. The base Inertia component automatically "provides" the current page object, which can then be "injected" into any component. Here's a simple example:
+Sometimes it's necessary to access the page data (props) from a non-page component. One really common use-case for this is the site layout. For example, you may want to show the currently authenticated user in the site header. This can be done using the `$page` property. Here's a simple example:
 
 ~~~vue
 <template>
   <main>
     <header>
-      You are logged in as: {{ page.props.auth.user.name }}
+      You are logged in as: {{ $page.auth.user.name }}
 
       <nav>
         <inertia-link href="/">Home</inertia-link>
@@ -179,13 +179,9 @@ Sometimes it's necessary to access the page data (props) from a non-page compone
     </article>
   </main>
 </template>
-
-<script>
-export default {
-  inject: ['page'],
-}
-</script>
 ~~~
+
+This can also be useful for other common "global" data, such as errors and flash messages.
 
 ## Remembering local component state
 
