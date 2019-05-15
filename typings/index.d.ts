@@ -13,6 +13,7 @@ declare const App: Component<AppData, never, never, AppProps>
 interface InertiaLinkProps {
   href: string,
   method?: string,
+  onClick?: () => void,
   preserveScroll?: boolean,
   replace?: boolean,
 }
