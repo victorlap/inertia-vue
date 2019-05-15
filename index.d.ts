@@ -5,9 +5,7 @@ interface Page<PageProps = {}> {
   instance: Component | null
   props: PageProps | {}
 }
-interface AppData<PageProps = {}> {
-  page: Page<PageProps>
-}
+type AppData<PageProps = {}> = Page<PageProps>
 interface AppProps<PageProps = {}> {
   initialPage: InertiaPage<PageProps>
   resolveComponent: (name: string) => Component
