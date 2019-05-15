@@ -1,18 +1,18 @@
 import Inertia from 'inertia'
 import Vue from 'vue'
 
-type PageProps = {}
+interface PageProps {}
 
-type AppData = {
+interface AppData {
   page: object,
 }
-type AppProps = {
+interface AppProps {
   initialPage: PageProps,
   resolveComponent: (name: string) => Vue.Component,
 }
 declare const App: Vue.Component<AppData, never, never, AppProps>
 
-type InertiaLinkProps = {
+interface InertiaLinkProps {
   href: string,
   method?: string,
   preserveScroll?: boolean,
