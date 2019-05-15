@@ -19,6 +19,7 @@ type App<PageProps = {}, TransformedProps = PageProps> = Component<
 >
 
 interface InertiaLinkProps {
+  data?: object
   href: string
   method?: string
   onClick?: (event: HTMLInputElement | KeyboardEvent) => void
