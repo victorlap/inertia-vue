@@ -1,11 +1,13 @@
 import Inertia from 'inertia'
 import Vue from 'vue'
 
+type PageProps = {}
+
 type AppData = {
   page: object,
 }
 type AppProps = {
-  initialPage: object,
+  initialPage: PageProps,
   resolveComponent: (name: string) => Vue.Component,
 }
 declare const App: Vue.Component<AppData, never, never, AppProps>
