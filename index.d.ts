@@ -21,7 +21,7 @@ interface InertiaLinkProps {
   preserveScroll?: boolean
   replace?: boolean
 }
-declare const InertiaLink: FunctionalComponentOptions<InertiaLinkProps>
+type InertiaLink = FunctionalComponentOptions<InertiaLinkProps>
 
 export default App
 export { Inertia, InertiaLink, Page }
