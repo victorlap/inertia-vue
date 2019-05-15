@@ -1,5 +1,5 @@
 import Inertia from 'inertia'
-import Vue from 'vue'
+import { Component, FunctionalComponentOptions } from 'vue'
 
 interface PageProps {}
 
@@ -8,9 +8,9 @@ interface AppData {
 }
 interface AppProps {
   initialPage: PageProps,
-  resolveComponent: (name: string) => Vue.Component,
+  resolveComponent: (name: string) => Component,
 }
-declare const App: Vue.Component<AppData, never, never, AppProps>
+declare const App: Component<AppData, never, never, AppProps>
 
 interface InertiaLinkProps {
   href: string,
@@ -18,7 +18,7 @@ interface InertiaLinkProps {
   preserveScroll?: boolean,
   replace?: boolean,
 }
-declare const InertiaLink: Vue.FunctionalComponentOptions<InertiaLinkProps>
+declare const InertiaLink: FunctionalComponentOptions<InertiaLinkProps>
 
 export default App
 export { Inertia, InertiaLink }
