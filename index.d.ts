@@ -22,7 +22,7 @@ interface InertiaLinkProps {
   data?: object
   href: string
   method?: string
-  onClick?: (event: HTMLInputElement | KeyboardEvent) => void
+  onClick?: (event: MouseEvent | KeyboardEvent) => void
   preserveScroll?: boolean
   replace?: boolean
 }
