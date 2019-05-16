@@ -8,7 +8,7 @@ interface Page<TransformedProps = {}> {
 type AppData<TransformedProps = {}> = Page<TransformedProps>
 interface AppProps<PageProps = {}, TransformedProps = PageProps> {
   initialPage: InertiaPage<PageProps>
-  resolveComponent: (name: string) => Component
+  resolveComponent: (name: string) => Promise<Component>
   transformProps?: (props: PageProps) => TransformedProps
 }
 type App<PageProps = {}, TransformedProps = PageProps> = Component<
