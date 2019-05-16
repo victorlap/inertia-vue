@@ -34,7 +34,7 @@ export default {
       updatePage: (component, props) => {
         this.component = component
         this.props = this.transformProps(props)
-      }
+      },
     })
   },
   render(h) {
