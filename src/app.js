@@ -22,22 +22,24 @@ export default {
   },
   data() {
     return {
-      instance: null,
+      component: null,
       props: {},
     }
   },
   created() {
     app = this
-    Inertia.init(this.initialPage, page =>
-      Promise.resolve(this.resolveComponent(page.component)).then(instance => {
-        this.instance = instance
-        this.props = this.transformProps(page.props)
-      })
-    )
+    Inertia.init({
+      initialPage: this.initialPage,
+      resolveComponent: this.resolveComponent,
+      updatePage: (component, props) => {
+        this.component = component
+        this.props = this.transformProps(props)
+      }
+    })
   },
   render(h) {
-    if (this.instance) {
-      return h(this.instance, {
+    if (this.component) {
+      return h(this.component, {
         key: window.location.pathname,
         props: this.props,
       })
