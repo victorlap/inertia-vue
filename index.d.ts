@@ -2,7 +2,7 @@ import Inertia, { Page as InertiaPage } from 'inertia'
 import { Component, FunctionalComponentOptions } from 'vue'
 
 interface Page<TransformedProps = {}> {
-  instance: Component | null
+  component: Component | null
   props: TransformedProps | {}
 }
 type AppData<TransformedProps = {}> = Page<TransformedProps>
