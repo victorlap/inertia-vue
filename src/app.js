@@ -24,6 +24,7 @@ export default {
     return {
       component: null,
       props: {},
+      key: null,
     }
   },
   created() {
@@ -31,16 +32,17 @@ export default {
     Inertia.init({
       initialPage: this.initialPage,
       resolveComponent: this.resolveComponent,
-      updatePage: (component, props) => {
+      updatePage: (component, props, preserveState) => {
         this.component = component
         this.props = this.transformProps(props)
+        this.key = preserveState ? this.key : Date.now()
       }
     })
   },
   render(h) {
     if (this.component) {
       return h(this.component, {
-        key: window.location.pathname,
+        key: this.key,
         props: this.props,
       })
     }
