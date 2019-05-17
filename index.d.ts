@@ -1,4 +1,7 @@
-import Inertia, { Page as InertiaPage } from 'inertia'
+import Inertia, {
+  Page as InertiaPage,
+  PageProps as InertiaPageProps,
+} from 'inertia'
 import { Component, FunctionalComponentOptions } from 'vue'
 
 interface Page<TransformedProps = {}> {
@@ -6,12 +9,18 @@ interface Page<TransformedProps = {}> {
   props: TransformedProps | {}
 }
 type AppData<TransformedProps = {}> = Page<TransformedProps>
-interface AppProps<PageProps = {}, TransformedProps = PageProps> {
+interface AppProps<
+  PageProps extends InertiaPageProps = {},
+  TransformedProps = PageProps
+> {
   initialPage: InertiaPage<PageProps>
   resolveComponent: (name: string) => Promise<Component>
   transformProps?: (props: PageProps) => TransformedProps
 }
-type App<PageProps = {}, TransformedProps = PageProps> = Component<
+type App<
+  PageProps extends InertiaPageProps = {},
+  TransformedProps = PageProps
+> = Component<
   AppData<TransformedProps>,
   never,
   never,
