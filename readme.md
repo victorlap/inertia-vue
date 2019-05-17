@@ -150,11 +150,9 @@ You can add data using the `data` attribute:
 You can also preserve a page component's local state using the `preserve-state` attribute. This will prevent a page component from fully re-rendering. This is especially helpful with forms, since you can avoid manually repopulating input fields, and can also maintain a focused input.
 
 ~~~vue
-<input v-model="query" type="text">
+<input v-model="query" type="text" />
 <inertia-link href="/search" :data="{ query }" preserve-state>Search</inertia-link>
 ~~~
-
-<inertia-link href="/logout" method="post">Logout</inertia-link>
 
 ## Manually making visits
 
