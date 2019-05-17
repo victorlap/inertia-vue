@@ -36,7 +36,7 @@ export default {
         this.component = component
         this.props = this.transformProps(props)
         this.key = preserveState ? this.key : Date.now()
-      }
+      },
     })
   },
   render(h) {
