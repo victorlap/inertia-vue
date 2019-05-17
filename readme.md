@@ -141,6 +141,12 @@ You can also specify the method for the request. The default is `GET`, but you c
 <inertia-link href="/logout" method="post">Logout</inertia-link>
 ~~~
 
+You can add data using the `data` attribute:
+
+~~~vue
+<inertia-link href="/endpoint" method="post" :data="{ foo: bar }">Save</inertia-link>
+~~~
+
 ## Manually making visits
 
 In addition to clicking links, it's also very common to manually make Inertia visits. The following methods are available:
