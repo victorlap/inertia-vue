@@ -141,21 +141,36 @@ You can also specify the method for the request. The default is `GET`, but you c
 <inertia-link href="/logout" method="post">Logout</inertia-link>
 ~~~
 
-## Manually making visits
+You can add data using the `data` attribute:
 
-In addition to clicking links, it's also very common to manually make Inertia visits. The following methods are available:
-
-~~~js
-this.$inertia.visit(url, { method = 'get', data = {}, replace = false, preserveScroll = false })
-this.$inertia.replace(url, { method = 'get', data = {}, preserveScroll = false })
-this.$inertia.reload({ method = 'get', data = {}, preserveScroll = false })
-this.$inertia.post(url, data = {}, { replace = false, preserveScroll = false })
-this.$inertia.put(url, data = {}, { replace = false, preserveScroll = false })
-this.$inertia.patch(url, data = {}, { replace = false, preserveScroll = false })
-this.$inertia.delete(url, { replace = false, preserveScroll = false })
+~~~vue
+<inertia-link href="/endpoint" method="post" :data="{ foo: bar }">Save</inertia-link>
 ~~~
 
-Just like with an `<inertia-link>`, you can set the browser history and scroll behaviour using the `replace` and `preserveScroll` options.
+You can also preserve a page component's local state using the `preserve-state` attribute. This will prevent a page component from fully re-rendering. This is especially helpful with forms, since you can avoid manually repopulating input fields, and can also maintain a focused input.
+
+~~~vue
+<input v-model="query" type="text">
+<inertia-link href="/search" :data="{ query }" preserve-state>Search</inertia-link>
+~~~
+
+<inertia-link href="/logout" method="post">Logout</inertia-link>
+
+## Manually making visits
+
+In addition to clicking links, it's also very common to manually make Inertia visits. The following methods are available. Take note of the defaults.
+
+~~~js
+$inertia.visit(url, { method: 'get', data: {}, replace: false, preserveScroll: false, preserveState: false })
+$inertia.replace(url, { method: 'get', data: {}, preserveScroll: false, preserveState: true })
+$inertia.reload({ method: 'get', data: {}, preserveScroll: false, preserveState: false })
+$inertia.post(url, data, { replace: false, preserveScroll: false, preserveState: true })
+$inertia.put(url, data, { replace: false, preserveScroll: false, preserveState: true })
+$inertia.patch(url, data, { replace: false, preserveScroll: false, preserveState: true })
+$inertia.delete(url, { replace: false, preserveScroll: false, preserveState: false })
+~~~
+
+Just like with an `<inertia-link>`, you can control the history state behaviour using `replace`, scroll behaviour using `preserveScroll`, and local component state behaviour using `preserveState`.
 
 ## Accessing page data in other components
 

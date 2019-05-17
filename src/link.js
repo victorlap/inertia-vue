@@ -23,6 +23,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    preserveState: {
+      type: Boolean,
+      default: false,
+    },
   },
   render(h, { props, data, children }) {
     return h('a', {
@@ -44,8 +48,9 @@ export default {
             Inertia.visit(props.href, {
               data: props.data,
               method: props.method,
-              preserveScroll: props.preserveScroll,
               replace: props.replace,
+              preserveScroll: props.preserveScroll,
+              preserveState: props.preserveState,
             })
           }
         },
