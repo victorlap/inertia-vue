@@ -6,6 +6,7 @@ import { Component, FunctionalComponentOptions } from 'vue'
 
 interface Page<TransformedProps = {}> {
   component: Component | null
+  key: number | null
   props: TransformedProps | {}
 }
 type AppData<TransformedProps = {}> = Page<TransformedProps>
@@ -33,6 +34,7 @@ interface InertiaLinkProps {
   method?: string
   onClick?: (event: MouseEvent | KeyboardEvent) => void
   preserveScroll?: boolean
+  preserveState?: boolean
   replace?: boolean
 }
 type InertiaLink = FunctionalComponentOptions<InertiaLinkProps>
