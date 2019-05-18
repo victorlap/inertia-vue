@@ -74,7 +74,60 @@ new Vue({
 }).$mount(app)
 ~~~
 
-The `resolveComponent` is a callback that tells Inertia how to load a page component. This callback must return a promise with a page instance.
+The `resolveComponent` is a callback that tells Inertia how to load a page component. It receives a page name (string), and must return a component instance.
+
+## Using Inertia without code splitting
+
+It's possible to also use Inertia without code splitting. This will generate one larger JavaScript bundle, instead of many smaller ones. With this approach, the dynamic imports Babel plugin is not required.
+
+One way to do this is manually loading all your page components:
+
+~~~js
+import Inertia from 'inertia-vue'
+import Vue from 'vue'
+
+Vue.use(Inertia)
+
+let app = document.getElementById('app')
+
+const pages = {
+  'Dashboard/Index': require('./Pages/Dashboard/Index').default,
+  'Users/Index': require('./Pages/Users/Index').default,
+  'Users/Create': require('./Pages/Users/Create').default,
+  // etc...
+}
+
+new Vue({
+  render: h => h(Inertia, {
+    props: {
+      initialPage: JSON.parse(app.dataset.page),
+      resolveComponent: name => pages[name],
+    },
+  }),
+}).$mount(app)
+~~~
+
+Another option is to use `required.context` to automatically register all your page components.
+
+~~~js
+import Inertia from 'inertia-vue'
+import Vue from 'vue'
+
+Vue.use(Inertia)
+
+let app = document.getElementById('app')
+
+const files = require.context('./', true, /\.vue$/i)
+
+new Vue({
+  render: h => h(Inertia, {
+    props: {
+      initialPage: JSON.parse(app.dataset.page),
+      resolveComponent: page => files(`./Pages/${page}.vue`).default,
+    },
+  }),
+}).$mount(app)
+~~~
 
 ## Creating a base layout
 
