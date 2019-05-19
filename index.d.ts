@@ -11,7 +11,7 @@ interface Page<TransformedProps = {}> {
 }
 type AppData<TransformedProps = {}> = Page<TransformedProps>
 interface AppProps<
-  PageProps extends InertiaPageProps = {},
+  PageProps extends InertiaPageProps = InertiaPageProps,
   TransformedProps = PageProps
 > {
   initialPage: InertiaPage<PageProps>
@@ -19,7 +19,7 @@ interface AppProps<
   transformProps?: (props: PageProps) => TransformedProps
 }
 type App<
-  PageProps extends InertiaPageProps = {},
+  PageProps extends InertiaPageProps = InertiaPageProps,
   TransformedProps = PageProps
 > = Component<
   AppData<TransformedProps>,
