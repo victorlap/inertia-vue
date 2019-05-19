@@ -15,7 +15,7 @@ interface AppProps<
   TransformedProps = PageProps
 > {
   initialPage: InertiaPage<PageProps>
-  resolveComponent: (name: string) => Promise<Component>
+  resolveComponent: (name: string) => Component | Promise<Component>
   transformProps?: (props: PageProps) => TransformedProps
 }
 type App<
