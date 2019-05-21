@@ -52,6 +52,14 @@ Next, create a `.babelrc` file in your project with the following:
 }
 ~~~
 
+Alternatively, if you're using Laravel Mix, you can put this in your `webpack.mix.js` file:
+
+~~~js
+mix.babelConfig({
+  plugins: ['@babel/plugin-syntax-dynamic-import'],
+})
+~~~
+
 ## Initializing Vue
 
 Next, update your main JavaScript file to boot your Inertia app. All we're doing here is initializing Vue with the base Inertia page component.
