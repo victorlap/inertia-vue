@@ -70,7 +70,7 @@ import Vue from 'vue'
 
 Vue.use(Inertia)
 
-let app = document.getElementById('app')
+const app = document.getElementById('app')
 
 new Vue({
   render: h => h(Inertia, {
@@ -96,7 +96,7 @@ import Vue from 'vue'
 
 Vue.use(Inertia)
 
-let app = document.getElementById('app')
+const app = document.getElementById('app')
 
 const pages = {
   'Dashboard/Index': require('./Pages/Dashboard/Index').default,
@@ -123,7 +123,7 @@ import Vue from 'vue'
 
 Vue.use(Inertia)
 
-let app = document.getElementById('app')
+const app = document.getElementById('app')
 
 const files = require.context('./', true, /\.vue$/i)
 
