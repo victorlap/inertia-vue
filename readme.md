@@ -313,3 +313,31 @@ You can also shortform the remember values:
   remember: 'form',
 }
 ~~~
+
+## Advanced Usage: Middleware between backend and component
+
+You can pass a `transformProps` function to manipulate props data, for example new up an Error Object with more features.
+
+~~~js
+import Inertia from 'inertia-vue'
+import Vue from 'vue'
+
+Vue.use(Inertia)
+
+const app = document.getElementById('app')
+
+new Vue({
+  render: h => h(Inertia, {
+    props: {
+      initialPage: JSON.parse(app.dataset.page),
+      resolveComponent: name => import(`@/Pages/${name}`).then(module => module.default),
+      transformProps: ({ errors, ...props}) => {
+          return {
+              errors: new Errors(errors),
+              ...props
+          }
+      },
+    },
+  }),
+}).$mount(app)
+~~~
