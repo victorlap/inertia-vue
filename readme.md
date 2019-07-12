@@ -313,3 +313,24 @@ You can also shortform the remember values:
   remember: 'form',
 }
 ~~~
+
+## Transforming props client-side
+
+Sometimes it can be useful to transform the props client-side before they are passed to the page component. For example, you may have an collection of errors that you want to convert into a custom Error object. You can do this using the `transformProps` callback.
+
+~~~js
+new Vue({
+  render: h => h(Inertia, {
+    props: {
+      initialPage: JSON.parse(app.dataset.page),
+      resolveComponent: name => import(`@/Pages/${name}`).then(module => module.default),
+      transformProps: (props) => {
+          return {
+              ...props,
+              errors: new Errors(props.errors),
+          }
+      },
+    },
+  }),
+}).$mount(app)
+~~~
