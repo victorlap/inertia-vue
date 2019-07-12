@@ -314,27 +314,20 @@ You can also shortform the remember values:
 }
 ~~~
 
-## Advanced Usage: Middleware between backend and component
+## Transforming props client-side
 
-You can pass a `transformProps` function to manipulate props data, for example new up an Error Object with more features.
+Sometimes it can be useful to transform the props client-side before they are passed to the page component. For example, you may have an collection of errors that you want to convert into a custom Error object. You can do this using the `transformProps` callback.
 
 ~~~js
-import Inertia from 'inertia-vue'
-import Vue from 'vue'
-
-Vue.use(Inertia)
-
-const app = document.getElementById('app')
-
 new Vue({
   render: h => h(Inertia, {
     props: {
       initialPage: JSON.parse(app.dataset.page),
       resolveComponent: name => import(`@/Pages/${name}`).then(module => module.default),
-      transformProps: ({ errors, ...props}) => {
+      transformProps: (props) => {
           return {
-              errors: new Errors(errors),
-              ...props
+              ...props,
+              errors: new Errors(props.errors),
           }
       },
     },
