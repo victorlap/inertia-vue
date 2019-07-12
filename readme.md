@@ -316,7 +316,7 @@ You can also shortform the remember values:
 
 ## Transforming props client-side
 
-Sometimes it can be useful to transform the props client-side before they are passed to the page component. For example, you may have an collection of errors that you want to convert into a custom Error object. You can do this using the `transformProps` callback.
+Sometimes it can be useful to transform the props client-side before they are passed to the page component. For example, you may have a collection of errors that you want to convert into a custom Error object. You can do this using the `transformProps` callback.
 
 ~~~js
 new Vue({
