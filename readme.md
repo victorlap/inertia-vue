@@ -65,15 +65,15 @@ mix.babelConfig({
 Next, update your main JavaScript file to boot your Inertia app. All we're doing here is initializing Vue with the base Inertia page component.
 
 ~~~js
-import Inertia from 'inertia-vue'
+import { InertiaApp } from '@inertiajs/inertia-vue'
 import Vue from 'vue'
 
-Vue.use(Inertia)
+Vue.use(InertiaApp)
 
 const app = document.getElementById('app')
 
 new Vue({
-  render: h => h(Inertia, {
+  render: h => h(InertiaApp, {
     props: {
       initialPage: JSON.parse(app.dataset.page),
       resolveComponent: name => import(`@/Pages/${name}`).then(module => module.default),
@@ -91,10 +91,10 @@ It's possible to also use Inertia without code splitting. This will generate one
 One way to do this is manually loading all your page components:
 
 ~~~js
-import Inertia from 'inertia-vue'
+import { InertiaApp } from '@inertiajs/inertia-vue'
 import Vue from 'vue'
 
-Vue.use(Inertia)
+Vue.use(InertiaApp)
 
 const app = document.getElementById('app')
 
@@ -106,7 +106,7 @@ const pages = {
 }
 
 new Vue({
-  render: h => h(Inertia, {
+  render: h => h(InertiaApp, {
     props: {
       initialPage: JSON.parse(app.dataset.page),
       resolveComponent: name => pages[name],
@@ -118,17 +118,17 @@ new Vue({
 Another option is to use `required.context` to automatically register all your page components.
 
 ~~~js
-import Inertia from 'inertia-vue'
+import { InertiaApp } from '@inertiajs/inertia-vue'
 import Vue from 'vue'
 
-Vue.use(Inertia)
+Vue.use(InertiaApp)
 
 const app = document.getElementById('app')
 
 const files = require.context('./', true, /\.vue$/i)
 
 new Vue({
-  render: h => h(Inertia, {
+  render: h => h(InertiaApp, {
     props: {
       initialPage: JSON.parse(app.dataset.page),
       resolveComponent: page => files(`./Pages/${page}.vue`).default,
