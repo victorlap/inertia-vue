@@ -5,7 +5,7 @@
 Install using NPM:
 
 ~~~sh
-npm install inertiajs/inertia-vue --save
+npm install @inertiajs/inertia @inertiajs/inertia-vue --save
 ~~~
 
 ## Configure server-side framework
