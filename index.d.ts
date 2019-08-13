@@ -1,43 +1,45 @@
-import Inertia, {
-  Page as InertiaPage,
-  PageProps as InertiaPageProps,
-} from 'inertia'
 import { Component, FunctionalComponentOptions } from 'vue'
 
-interface Page<TransformedProps = {}> {
-  component: Component | null
-  key: number | null
-  props: TransformedProps | {}
-}
-type AppData<TransformedProps = {}> = Page<TransformedProps>
-interface AppProps<
-  PageProps extends InertiaPageProps = InertiaPageProps,
-  TransformedProps = PageProps
-> {
-  initialPage: InertiaPage<PageProps>
-  resolveComponent: (name: string) => Component | Promise<Component>
-  transformProps?: (props: PageProps) => TransformedProps
-}
-type App<
-  PageProps extends InertiaPageProps = InertiaPageProps,
-  TransformedProps = PageProps
-> = Component<
-  AppData<TransformedProps>,
-  never,
-  never,
-  AppProps<PageProps, TransformedProps>
->
+declare namespace InertiaVue {
+  interface AppData<PageProps extends Inertia.PageProps = Inertia.PageProps> {
+    component: Component | null
+    key: number | null
+    props: PageProps | {}
+  }
+  interface AppProps<
+    PagePropsBeforeTransform extends Inertia.PagePropsBeforeTransform = Inertia.PagePropsBeforeTransform,
+    PageProps extends Inertia.PageProps = Inertia.PageProps
+  > {
+    initialPage: Inertia.Page<PageProps>
+    resolveComponent: (name: string) => Component | Promise<Component>
+    transformProps?: (props: PagePropsBeforeTransform) => PageProps
+  }
 
-interface InertiaLinkProps {
-  data?: object
-  href: string
-  method?: string
-  onClick?: (event: MouseEvent | KeyboardEvent) => void
-  preserveScroll?: boolean
-  preserveState?: boolean
-  replace?: boolean
-}
-type InertiaLink = FunctionalComponentOptions<InertiaLinkProps>
+  type App<
+    PagePropsBeforeTransform extends Inertia.PagePropsBeforeTransform = Inertia.PagePropsBeforeTransform,
+    PageProps extends Inertia.PageProps = Inertia.PageProps
+  > = Component<
+    AppData<PageProps>,
+    never,
+    never,
+    AppProps<PagePropsBeforeTransform, PageProps>
+  >
 
-export default App
-export { Inertia, InertiaLink, Page }
+  interface InertiaLinkProps {
+    data?: object
+    href: string
+    method?: string
+    onClick?: (event: MouseEvent | KeyboardEvent) => void
+    preserveScroll?: boolean
+    preserveState?: boolean
+    replace?: boolean
+  }
+
+  type InertiaLink = FunctionalComponentOptions<InertiaLinkProps>
+}
+
+declare module '@inertiajs/inertia-vue' {
+  export const InertiaLink: InertiaVue.InertiaLink
+
+  export const InertiaApp: InertiaVue.App
+}
