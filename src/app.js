@@ -1,4 +1,4 @@
-import { Inertia } from 'inertia'
+import { Inertia } from '@inertiajs/inertia'
 import Link from './link'
 import Remember from './remember'
 

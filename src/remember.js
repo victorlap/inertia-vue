@@ -1,4 +1,4 @@
-import { Inertia } from 'inertia'
+import { Inertia } from '@inertiajs/inertia'
 
 export default {
   created() {

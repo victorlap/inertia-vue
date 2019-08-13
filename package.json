@@ -1,5 +1,5 @@
 {
-  "name": "inertia-vue",
+  "name": "@inertiajs/inertia-vue",
   "version": "0.1.0",
   "description": "The Vue adapter for Inertia.js",
   "contributors": [
@@ -17,12 +17,12 @@
     "prepublishOnly": "npm run build"
   },
   "devDependencies": {
+    "@inertiajs/inertia": "^0.1.0",
     "eslint": "^5.15.3",
-    "inertia": "inertiajs/inertia",
     "microbundle": "^0.11.0"
   },
   "peerDependencies": {
-    "inertia": "inertiajs/inertia",
+    "@inertiajs/inertia": "^0.1.0",
     "vue": "^2.0.0"
   }
 }
