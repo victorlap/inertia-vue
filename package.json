@@ -2,13 +2,24 @@
   "name": "inertia-vue",
   "version": "0.1.0",
   "description": "The Vue adapter for Inertia.js",
-  "main": "src/index.js",
   "author": "Jonathan Reinink",
   "license": "MIT",
-  "dependencies": {
-    "inertia": "inertiajs/inertia"
+  "source": "src/index.js",
+  "main": "dist/index.js",
+  "unpkg": "dist/index.umd.js",
+  "scripts": {
+    "build": "npm run build:cjs && npm run build:umd",
+    "build:cjs": "microbundle --format cjs",
+    "build:umd": "microbundle --format umd --name InertiaVue --globals vue=Vue,inertia=Inertia",
+    "prepublishOnly": "npm run build"
   },
   "devDependencies": {
-    "eslint": "^5.15.3"
+    "eslint": "^5.15.3",
+    "inertia": "inertiajs/inertia",
+    "microbundle": "^0.11.0"
+  },
+  "peerDependencies": {
+    "inertia": "inertiajs/inertia",
+    "vue": "^2.0.0"
   }
 }

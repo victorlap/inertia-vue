@@ -1,4 +1,4 @@
-import Inertia, { shouldIntercept } from 'inertia'
+import { Inertia, shouldIntercept } from 'inertia'
 
 export default {
   functional: true,

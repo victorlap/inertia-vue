@@ -1,4 +1,4 @@
-import Inertia from 'inertia'
+import { Inertia } from 'inertia'
 
 export default {
   created() {
