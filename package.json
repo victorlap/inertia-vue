@@ -19,7 +19,8 @@
   "devDependencies": {
     "@inertiajs/inertia": "^0.1.0",
     "eslint": "^6.1.0",
-    "microbundle": "^0.11.0"
+    "microbundle": "^0.11.0",
+    "vue": "^2.6.10"
   },
   "peerDependencies": {
     "@inertiajs/inertia": "^0.1.0",
