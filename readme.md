@@ -58,7 +58,7 @@ mix.babelConfig({
 })
 ~~~
 
-**Limitation:** When using Laravel Mix (v4) with dynamic imports you cannot write styles within Vue files. As a workaround, you need to drop Mix entirely or downgrade to v3 due to current Webpack limitations ([source](https://github.com/JeffreyWay/laravel-mix/issues/1856#issuecomment-448082909)). 
+**Limitation:** When using Laravel Mix (v4) with dynamic imports you cannot write styles within Vue files. As a workaround, you need to drop Mix entirely or downgrade to v3 due to current Webpack limitations ([source](https://github.com/JeffreyWay/laravel-mix/issues/1856#issuecomment-448082909)).
 
 ## Initializing Vue
 
