@@ -5,10 +5,19 @@
   "main": "src/index.js",
   "author": "Jonathan Reinink",
   "license": "MIT",
-  "dependencies": {
-    "inertia": "inertiajs/inertia"
+  "scripts": {
+    "build": "npm run build:cjs && npm run build:umd",
+    "build:cjs": "microbundle --format cjs",
+    "build:umd": "microbundle --format umd --name InertiaVue --globals vue=Vue,inertia=Inertia",
+    "prepublishOnly": "npm run build"
   },
   "devDependencies": {
-    "eslint": "^5.15.3"
+    "eslint": "^5.15.3",
+    "inertia": "inertiajs/inertia",
+    "microbundle": "^0.11.0"
+  },
+  "peerDependencies": {
+    "inertia": "inertiajs/inertia",
+    "vue": "^2.0.0"
   }
 }
