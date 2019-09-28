@@ -1,6 +1,6 @@
 {
   "name": "@inertiajs/inertia-vue",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "The Vue adapter for Inertia.js",
   "contributors": [
     "Jonathan Reinink <jonathan@reinink.ca>",
