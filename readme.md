@@ -36,7 +36,7 @@ mix
 
 ## Setup dynamic imports
 
-By default, Inertia.js uses code splitting. To do this we need to enable [dynamic imports](https://github.com/tc39/proposal-dynamic-import). We'll use a Babel plugin to make this work. First, install the plugin:
+We recommend using code splitting with Inertia.js. To do this we need to enable [dynamic imports](https://github.com/tc39/proposal-dynamic-import). We'll use a Babel plugin to make this work. First, install the plugin:
 
 ~~~sh
 npm install @babel/plugin-syntax-dynamic-import --save
@@ -50,13 +50,7 @@ Next, create a `.babelrc` file in your project with the following:
 }
 ~~~
 
-Alternatively, if you're using Laravel Mix, you can put this in your `webpack.mix.js` file:
-
-~~~js
-mix.babelConfig({
-  plugins: ['@babel/plugin-syntax-dynamic-import'],
-})
-~~~
+If you're using Laravel Mix `^4.0.15`, you can skip the previous step.
 
 **Limitation:** When using Laravel Mix (v4) with dynamic imports you cannot write styles within Vue files. As a workaround, you need to drop Mix entirely or downgrade to v3 due to current Webpack limitations ([source](https://github.com/JeffreyWay/laravel-mix/issues/1856#issuecomment-448082909)).
 
