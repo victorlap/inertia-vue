@@ -41,23 +41,20 @@ export default {
   },
   render(h) {
     if (this.component) {
-      if (this.component.layout) {
-        const child = h(this.component, {
-          key: this.key,
-          props: this.props,
-        })
+      const child = h(this.component, {
+        key: this.key,
+        props: this.props,
+      })
 
+      if (this.component.layout) {
         if (typeof this.component.layout === 'function') {
           return this.component.layout(h, child)
-        } else {
-          return h(this.component.layout, [child])
         }
-      } else {
-        return h(this.component, {
-          key: this.key,
-          props: this.props,
-        })
+
+        return h(this.component.layout, [child])
       }
+
+      return child
     }
   },
   install(Vue) {
