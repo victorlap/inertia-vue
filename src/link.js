@@ -25,7 +25,7 @@ export default {
     },
     preserveState: {
       type: Boolean,
-      default: false,
+      default: null,
     },
   },
   render(h, { props, data, children }) {
@@ -50,7 +50,9 @@ export default {
               method: props.method,
               replace: props.replace,
               preserveScroll: props.preserveScroll,
-              preserveState: props.preserveState,
+              preserveState: props.preserveState != null
+                ? props.preserveState
+                : ['post', 'put', 'patch'].includes(props.method),
             })
           }
         },
